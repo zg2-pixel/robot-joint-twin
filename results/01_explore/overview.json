@@ -1,0 +1,128 @@
+{
+ "file": "voraus-ad-dataset-100hz.parquet",
+ "rows": 2321690,
+ "columns": 137,
+ "cycles": 2122,
+ "sampling_hz": 99,
+ "mean_duration_s": 11.01,
+ "cycles_per_category": {
+  "axis_friction": 144,
+  "axis_weight": 156,
+  "can_weight": 80,
+  "collision_cable": 48,
+  "collision_carton": 22,
+  "collision_foam": 72,
+  "entangled": 10,
+  "invalid_position": 12,
+  "lose_can": 74,
+  "miss_can": 11,
+  "motor_commutation": 89,
+  "normal": 1367,
+  "wobbling_station": 37
+ },
+ "variants": {
+  "axis_friction": [
+   "A1_A",
+   "A1_B",
+   "A2_A",
+   "A2_B",
+   "A3_A",
+   "A3_B",
+   "A3_C",
+   "A4_A",
+   "A4_B",
+   "A4_C",
+   "A5_A",
+   "A5_B",
+   "A6_A",
+   "A6_B"
+  ],
+  "axis_weight": [
+   "A1_115G",
+   "A1_231G",
+   "A1_500G",
+   "A2_115G",
+   "A2_231G",
+   "A2_500G",
+   "A3_115G",
+   "A3_231G",
+   "A3_500G",
+   "A4_115G",
+   "A4_231G",
+   "A4_500G",
+   "A5_115G",
+   "A5_231G",
+   "A5_500G",
+   "A6_115G",
+   "A6_231G",
+   "A6_500G"
+  ],
+  "can_weight": [
+   "DECREASE_165G",
+   "DECREASE_95G",
+   "EMPTY",
+   "INCREASE_242G",
+   "INCREASE_373G",
+   "INCREASE_407G"
+  ],
+  "collision_cable": [
+   "CONNECTOR_SIDE",
+   "CONNECTOR_TOP",
+   "LAN",
+   "STRIPE"
+  ],
+  "collision_carton": [
+   "CONVEYOR",
+   "FULL_A",
+   "FULL_B"
+  ],
+  "collision_foam": [
+   "LARGE_FULL",
+   "LARGE_HANGING_FULL",
+   "SMALL_FULL",
+   "SMALL_HANGING_FULL",
+   "SMALL_HANGING_STRIPE",
+   "SMALL_STRIPE"
+  ],
+  "entangled": [
+   "CABLE"
+  ],
+  "invalid_position": [
+   "PICK"
+  ],
+  "lose_can": [
+   "DEFECT_GRIPPER_DROP_CAN",
+   "DROP_100MS",
+   "DROP_1100MS",
+   "DROP_1400MS",
+   "DROP_200MS",
+   "LOSE_200MS",
+   "LOSE_300MS",
+   "LOSE_PLACE_100MS"
+  ],
+  "miss_can": [
+   "NO_VACUUM"
+  ],
+  "motor_commutation": [
+   "A1_HIGH",
+   "A1_MEDIUM",
+   "A2_MEDIUM",
+   "A3_MEDIUM",
+   "A4_MEDIUM",
+   "A5_MEDIUM",
+   "A6_MEDIUM"
+  ],
+  "normal": [
+   "BETWEEN_A",
+   "BETWEEN_B",
+   "BETWEEN_C",
+   "PRE_A",
+   "PRE_B"
+  ],
+  "wobbling_station": [
+   "HIGH_DAMPING",
+   "LOW_DAMPING",
+   "MEDIUM_DAMPING"
+  ]
+ }
+}

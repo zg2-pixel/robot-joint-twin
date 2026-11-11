@@ -1,0 +1,204 @@
+{
+ "propagation": {
+  "1": {
+   "fit_residual_std_Nm": 1.45778707798909,
+   "n_moving_samples": 305.91294806144845,
+   "se_coulomb_white_Nm": 0.1432104463944237,
+   "se_coulomb_corrected_Nm": 0.3292434537728073,
+   "residual_lag1_corr": 0.6789926875959297,
+   "empirical_std_within_batch_Nm": 0.057898910077250385,
+   "empirical_std_all_healthy_Nm": 0.08458237575921192,
+   "quantization_contribution_Nm": 0.00018519931588611405,
+   "ratio_empirical_over_corrected_se": 0.17585440018255677
+  },
+  "2": {
+   "fit_residual_std_Nm": 2.301229391529655,
+   "n_moving_samples": 430.76810534016096,
+   "se_coulomb_white_Nm": 0.1710709719968846,
+   "se_coulomb_corrected_Nm": 0.542950681877223,
+   "residual_lag1_corr": 0.8182392512510361,
+   "empirical_std_within_batch_Nm": 0.16665701722607842,
+   "empirical_std_all_healthy_Nm": 0.17200548226304482,
+   "quantization_contribution_Nm": 0.00015301814789765538,
+   "ratio_empirical_over_corrected_se": 0.3069468789501667
+  },
+  "3": {
+   "fit_residual_std_Nm": 1.915249299071911,
+   "n_moving_samples": 455.56547183613753,
+   "se_coulomb_white_Nm": 0.16373704351933177,
+   "se_coulomb_corrected_Nm": 0.3008718100222397,
+   "residual_lag1_corr": 0.5334388193444817,
+   "empirical_std_within_batch_Nm": 0.08572894141799847,
+   "empirical_std_all_healthy_Nm": 0.0938353838185544,
+   "quantization_contribution_Nm": 0.0001480730259216326,
+   "ratio_empirical_over_corrected_se": 0.28493510711974507
+  },
+  "4": {
+   "fit_residual_std_Nm": 0.4857000241437456,
+   "n_moving_samples": 510.7198244330651,
+   "se_coulomb_white_Nm": 0.03447727063604721,
+   "se_coulomb_corrected_Nm": 0.04358115265115268,
+   "residual_lag1_corr": 0.22461840674053118,
+   "empirical_std_within_batch_Nm": 0.02524813911890201,
+   "empirical_std_all_healthy_Nm": 0.026557343486046752,
+   "quantization_contribution_Nm": 3.6472866891785555e-05,
+   "ratio_empirical_over_corrected_se": 0.5793361942719113
+  },
+  "5": {
+   "fit_residual_std_Nm": 0.22716907574288894,
+   "n_moving_samples": 207.56474030724215,
+   "se_coulomb_white_Nm": 0.0270978714253242,
+   "se_coulomb_corrected_Nm": 0.02719416411416527,
+   "residual_lag1_corr": 0.0037871898302202856,
+   "empirical_std_within_batch_Nm": 0.018813098419275524,
+   "empirical_std_all_healthy_Nm": 0.017393402722122246,
+   "quantization_contribution_Nm": 5.8788122829596016e-05,
+   "ratio_empirical_over_corrected_se": 0.69180646039699
+  },
+  "6": {
+   "fit_residual_std_Nm": 0.09664421140058313,
+   "n_moving_samples": 326.6773957571324,
+   "se_coulomb_white_Nm": 0.008728891607232843,
+   "se_coulomb_corrected_Nm": 0.009092044749428235,
+   "residual_lag1_corr": 0.039859352831638356,
+   "empirical_std_within_batch_Nm": 0.006543106636710566,
+   "empirical_std_all_healthy_Nm": 0.007058880062727552,
+   "quantization_contribution_Nm": 4.4135911618511036e-05,
+   "ratio_empirical_over_corrected_se": 0.7196518293777687
+  }
+ },
+ "psd": {
+  "1": {
+   "torque_sensor_a": {
+    "f95_hz": 4.296875,
+    "f99_hz": 10.9375,
+    "power_above_40hz": 0.0016131255407125804
+   },
+   "motor_torque": {
+    "f95_hz": 2.34375,
+    "f99_hz": 11.328125,
+    "power_above_40hz": 0.002202641814403922
+   },
+   "motor_iq": {
+    "f95_hz": 2.734375,
+    "f99_hz": 24.609375,
+    "power_above_40hz": 0.003584139534209648
+   },
+   "joint_velocity": {
+    "f95_hz": 1.171875,
+    "f99_hz": 1.171875,
+    "power_above_40hz": 1.0699140954514667e-05
+   }
+  },
+  "2": {
+   "torque_sensor_a": {
+    "f95_hz": 5.46875,
+    "f99_hz": 8.59375,
+    "power_above_40hz": 0.00025650774543537055
+   },
+   "motor_torque": {
+    "f95_hz": 3.515625,
+    "f99_hz": 6.640625,
+    "power_above_40hz": 0.0006797229926006059
+   },
+   "motor_iq": {
+    "f95_hz": 3.90625,
+    "f99_hz": 10.9375,
+    "power_above_40hz": 0.0016524240050115485
+   },
+   "joint_velocity": {
+    "f95_hz": 2.34375,
+    "f99_hz": 3.515625,
+    "power_above_40hz": 4.369313294971941e-05
+   }
+  },
+  "3": {
+   "torque_sensor_a": {
+    "f95_hz": 13.28125,
+    "f99_hz": 33.984375,
+    "power_above_40hz": 0.00486669224009494
+   },
+   "motor_torque": {
+    "f95_hz": 5.078125,
+    "f99_hz": 26.953125,
+    "power_above_40hz": 0.003675209936019521
+   },
+   "motor_iq": {
+    "f95_hz": 5.859375,
+    "f99_hz": 33.59375,
+    "power_above_40hz": 0.005484957554674722
+   },
+   "joint_velocity": {
+    "f95_hz": 1.953125,
+    "f99_hz": 2.734375,
+    "power_above_40hz": 5.660364512190658e-05
+   }
+  },
+  "4": {
+   "torque_sensor_a": {
+    "f95_hz": 39.0625,
+    "f99_hz": 46.875,
+    "power_above_40hz": 0.04529000198638701
+   },
+   "motor_torque": {
+    "f95_hz": 6.25,
+    "f99_hz": 37.890625,
+    "power_above_40hz": 0.008166229773678748
+   },
+   "motor_iq": {
+    "f95_hz": 7.03125,
+    "f99_hz": 38.671875,
+    "power_above_40hz": 0.00884992280263643
+   },
+   "joint_velocity": {
+    "f95_hz": 1.953125,
+    "f99_hz": 2.734375,
+    "power_above_40hz": 0.0002596008934518116
+   }
+  },
+  "5": {
+   "torque_sensor_a": {
+    "f95_hz": 30.859375,
+    "f99_hz": 45.3125,
+    "power_above_40hz": 0.032667312461263226
+   },
+   "motor_torque": {
+    "f95_hz": 13.28125,
+    "f99_hz": 42.96875,
+    "power_above_40hz": 0.015261522499646126
+   },
+   "motor_iq": {
+    "f95_hz": 25.390625,
+    "f99_hz": 45.3125,
+    "power_above_40hz": 0.021318485114189933
+   },
+   "joint_velocity": {
+    "f95_hz": 1.953125,
+    "f99_hz": 2.34375,
+    "power_above_40hz": 0.0007711112961412875
+   }
+  },
+  "6": {
+   "torque_sensor_a": {
+    "f95_hz": 45.703125,
+    "f99_hz": 49.21875,
+    "power_above_40hz": 0.10973122168359756
+   },
+   "motor_torque": {
+    "f95_hz": 1.953125,
+    "f99_hz": 33.203125,
+    "power_above_40hz": 0.005608729684254765
+   },
+   "motor_iq": {
+    "f95_hz": 2.734375,
+    "f99_hz": 36.328125,
+    "power_above_40hz": 0.007246351745584051
+   },
+   "joint_velocity": {
+    "f95_hz": 1.171875,
+    "f99_hz": 1.171875,
+    "power_above_40hz": 2.9781397151630757e-05
+   }
+  }
+ }
+}

@@ -1,0 +1,8 @@
+numpy
+scipy
+pandas
+pyarrow
+matplotlib
+scikit-learn
+streamlit>=1.49
+plotly>=5.20

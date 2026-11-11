@@ -1,0 +1,207 @@
+{
+ "costs": {
+  "missed": 100.0,
+  "stop": 30.0,
+  "sched": 3.0,
+  "slow": 0.3,
+  "waste": 0.1
+ },
+ "b1_threshold": 20.966112615460204,
+ "tau_max": 1.8,
+ "trusted_classes": [
+  "payload",
+  "electrical"
+ ],
+ "classifier_heldout": {
+  "n": 594,
+  "accuracy": 0.8956228956228957,
+  "recall": {
+   "collision": 0.23255813953488372,
+   "electrical": 1.0,
+   "friction": 1.0,
+   "healthy": 0.9728601252609603,
+   "payload": 0.746031746031746
+  },
+  "brier": 0.1655149338109582
+ },
+ "S1_heldout": {
+  "healthy": {
+   "n": 479,
+   "actions": {
+    "continue": 0.981,
+    "abstain": 0.019
+   },
+   "mean_p_fault": 0.01922241625328217,
+   "b1_stop_rate": 0.006263048016701462,
+   "b2_stop_rate": 0.027139874739039668,
+   "unnecessary_stops_per_100": 0.0
+  },
+  "friction": {
+   "n": 6,
+   "actions": {
+    "stop": 0.667,
+    "continue": 0.167,
+    "slow": 0.167
+   },
+   "mean_p_fault": 0.795379751385362,
+   "b1_stop_rate": 0.0,
+   "b2_stop_rate": 1.0
+  },
+  "payload": {
+   "n": 63,
+   "actions": {
+    "slow": 0.667,
+    "continue": 0.317,
+    "stop": 0.016
+   },
+   "mean_p_fault": 0.3092088461860783,
+   "b1_stop_rate": 0.09523809523809523,
+   "b2_stop_rate": 0.7619047619047619
+  },
+  "collision": {
+   "n": 43,
+   "actions": {
+    "continue": 0.977,
+    "abstain": 0.023
+   },
+   "mean_p_fault": 0.04174452427875815,
+   "b1_stop_rate": 0.0,
+   "b2_stop_rate": 0.2558139534883721
+  },
+  "electrical": {
+   "n": 3,
+   "actions": {
+    "stop": 0.667,
+    "slow": 0.333
+   },
+   "mean_p_fault": 0.707941509579801,
+   "b1_stop_rate": 1.0,
+   "b2_stop_rate": 1.0
+  }
+ },
+ "S2_degradation": {
+  "runs": 10,
+  "mean_cost": {
+   "twin": 21.69,
+   "b1": 55.92999999999999,
+   "b2": 39.220000000000006
+  },
+  "outcomes": {
+   "twin": {
+    "early stop, ticket open": 5,
+    "planned in time": 4,
+    "no failure, kept running": 1
+   },
+   "b1": {
+    "unplanned stop": 5,
+    "missed": 4,
+    "no failure, kept running": 1
+   },
+   "b2": {
+    "unplanned stop": 9,
+    "unnecessary stop": 1
+   }
+  },
+  "twin_mean_slow_cycles": 6.7,
+  "planned_margin_cycles": 27.444444444444443
+ },
+ "S3_payload": {
+  "n": 63,
+  "actions": {
+   "slow": 0.667,
+   "continue": 0.317,
+   "stop": 0.016
+  },
+  "mean_p_fault": 0.3092088461860783,
+  "unknown_flag_rate": 0.14285714285714285,
+  "b1_stop_rate": 0.09523809523809523,
+  "b2_stop_rate": 0.7619047619047619
+ },
+ "S5_unseen_wobble": {
+  "n": 37,
+  "actions": {
+   "stop": 0.919,
+   "slow": 0.054,
+   "continue": 0.027
+  },
+  "mean_p_fault": 0.9752634109909006,
+  "unknown_flag_rate": 0.972972972972973,
+  "b1_stop_rate": 0.0,
+  "b2_stop_rate": 1.0
+ },
+ "S4_sensor_offset": {
+  "n": 40,
+  "abstain_rate": 1.0,
+  "actions": {
+   "abstain": 1.0
+  },
+  "b1_stop_rate": 0.0,
+  "b2_stop_rate": 1.0,
+  "b2_would_call": "payload (c0 shifts) - a false fault type"
+ },
+ "S6_sweep": [
+  {
+   "rate": 0.003,
+   "extra_noise": 0.0,
+   "coverage_90": 1.0,
+   "median_rel_err": 0.19069444444444444,
+   "est_spread": 0.2062677550380756
+  },
+  {
+   "rate": 0.003,
+   "extra_noise": 1.0,
+   "coverage_90": 0.9583333333333334,
+   "median_rel_err": 0.27764213463550746,
+   "est_spread": 0.32587420638171966
+  },
+  {
+   "rate": 0.003,
+   "extra_noise": 2.0,
+   "coverage_90": 0.9166666666666666,
+   "median_rel_err": 0.4274004683840749,
+   "est_spread": 0.5163001217761891
+  },
+  {
+   "rate": 0.006,
+   "extra_noise": 0.0,
+   "coverage_90": 0.8970588235294118,
+   "median_rel_err": 0.3090909090909091,
+   "est_spread": 0.22734531768644817
+  },
+  {
+   "rate": 0.006,
+   "extra_noise": 1.0,
+   "coverage_90": 0.8867924528301887,
+   "median_rel_err": 0.20476190476190476,
+   "est_spread": 0.34024828823481673
+  },
+  {
+   "rate": 0.006,
+   "extra_noise": 2.0,
+   "coverage_90": 0.6226415094339622,
+   "median_rel_err": 0.43037974683544306,
+   "est_spread": 0.5262993967086145
+  },
+  {
+   "rate": 0.012,
+   "extra_noise": 0.0,
+   "coverage_90": 0.875,
+   "median_rel_err": 0.31238273921200754,
+   "est_spread": 0.28497439689375786
+  },
+  {
+   "rate": 0.012,
+   "extra_noise": 1.0,
+   "coverage_90": 0.7586206896551724,
+   "median_rel_err": 0.3333333333333333,
+   "est_spread": 0.382314263623969
+  },
+  {
+   "rate": 0.012,
+   "extra_noise": 2.0,
+   "coverage_90": 0.3793103448275862,
+   "median_rel_err": 0.6756756756756757,
+   "est_spread": 0.555955963575659
+  }
+ ]
+}

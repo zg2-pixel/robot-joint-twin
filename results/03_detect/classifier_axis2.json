@@ -1,0 +1,38 @@
+{
+ "nb": {
+  "accuracy": 0.8887765419615774,
+  "recall": {
+   "collision": 0.28169014084507044,
+   "electrical": 1.0,
+   "friction": 1.0,
+   "healthy": 0.9698681732580038,
+   "payload": 0.6682464454976303
+  },
+  "brier": 0.17494083761531196
+ },
+ "knn": {
+  "accuracy": 0.884732052578362,
+  "recall": {
+   "collision": 0.056338028169014086,
+   "electrical": 1.0,
+   "friction": 1.0,
+   "healthy": 0.997489014438167,
+   "payload": 0.5734597156398105
+  },
+  "brier": 0.19214745979406728
+ },
+ "leave_one_level_out_friction_recall": {
+  "nb": {
+   "A2_A": 1.0,
+   "A2_B": 0.6363636363636364
+  },
+  "knn": {
+   "A2_A": 1.0,
+   "A2_B": 0.09090909090909091
+  }
+ },
+ "unseen_scored_by_nb": {
+  "fraction_called_healthy": 0.1875,
+  "mean_max_prob": 0.725761322088278
+ }
+}

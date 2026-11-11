@@ -1,0 +1,112 @@
+{
+ "settings": {
+  "lam": 0.98,
+  "k": 4.0,
+  "axis": 2
+ },
+ "false_alarm_rate_healthy": 0.0014847809948032665,
+ "batch_adaptation": {
+  "PRE_B": {
+   "first_z_gear": 0.47834228848014093,
+   "cycles_to_settle": 0,
+   "mean_z_tc": 0.7761292020961794
+  },
+  "BETWEEN_A": {
+   "first_z_gear": 2.007868353600312,
+   "cycles_to_settle": 2,
+   "mean_z_tc": 0.8489603010446485
+  },
+  "BETWEEN_B": {
+   "first_z_gear": 7.2387019203068315,
+   "cycles_to_settle": 38,
+   "mean_z_tc": 0.8987835243586652
+  },
+  "BETWEEN_C": {
+   "first_z_gear": 3.526209354100267,
+   "cycles_to_settle": 3,
+   "mean_z_tc": 0.7120800789051873
+  }
+ },
+ "steps": {
+  "A2_A": {
+   "n_fault_cycles": 10,
+   "detection_delay_cycles": 1,
+   "fraction_flagged": 1.0,
+   "mean_z_fault": 14.458362638799127,
+   "mean_tc_fault": 3.0329002609992584,
+   "ref_tc": 0.5960267308180995
+  },
+  "A2_B": {
+   "n_fault_cycles": 11,
+   "detection_delay_cycles": 1,
+   "fraction_flagged": 1.0,
+   "mean_z_fault": 7.346342083179892,
+   "mean_tc_fault": 1.8342936587415293,
+   "ref_tc": 0.5960267308180995
+  }
+ },
+ "other_axis_friction": {
+  "n": 123,
+  "fraction_flagged": 0.0,
+  "mean_z": 0.8649725842256983
+ },
+ "sensor_offset_0p5Nm": {
+  "n": 40,
+  "tau_c_flagged": 0.0,
+  "c0_flagged": 0.2,
+  "health_check_flagged": 1.0,
+  "note": "offset moves c0 (looks like payload) but not tau_c; the A-B check catches it"
+ },
+ "unseen_residual_test": {
+  "healthy_false_alarm": 0.0,
+  "per_category": {
+   "entangled": {
+    "n": 10,
+    "fraction_flagged": 0.0,
+    "mean_z": 1.540854064679051
+   },
+   "invalid_position": {
+    "n": 12,
+    "fraction_flagged": 0.0,
+    "mean_z": 1.0067669201472207
+   },
+   "lose_can": {
+    "n": 74,
+    "fraction_flagged": 0.04054054054054054,
+    "mean_z": 3.8275008853049712
+   },
+   "miss_can": {
+    "n": 11,
+    "fraction_flagged": 0.0,
+    "mean_z": -0.8896090355285872
+   },
+   "wobbling_station": {
+    "n": 37,
+    "fraction_flagged": 0.972972972972973,
+    "mean_z": 8.813373633747938
+   }
+  }
+ },
+ "labelled_residual_test": {
+  "collision": {
+   "n": 142,
+   "fraction_flagged": 0.04225352112676056,
+   "mean_z": 1.0815837796670078
+  },
+  "electrical": {
+   "n": 11,
+   "fraction_flagged": 0.09090909090909091,
+   "mean_z": 2.68257373042809
+  },
+  "friction": {
+   "n": 21,
+   "fraction_flagged": 0.19047619047619047,
+   "mean_z": 2.529240825881183
+  },
+  "payload": {
+   "n": 211,
+   "fraction_flagged": 0.08530805687203792,
+   "mean_z": 1.5144762299522705
+  }
+ }
+}

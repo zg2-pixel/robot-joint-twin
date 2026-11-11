@@ -1,0 +1,45 @@
+{
+ "settings": {
+  "tau_max": 1.8,
+  "runs": 50,
+  "cycles": 300,
+  "kf": {
+   "obs_std": 0.1813173444354969,
+   "level_std0": 0.3,
+   "slope_std0": 0.01,
+   "q_level": 0.01,
+   "q_slope": 0.0001
+  },
+  "every": 5,
+  "model": "restart",
+  "window": 40,
+  "warmup": 60
+ },
+ "crossed_runs": 49,
+ "innovation_std_healthy_run": 0.9168783201173142,
+ "coverage_90_overall": 0.8573928258967629,
+ "by_life_fraction": {
+  "0.25": {
+   "n": 179,
+   "coverage_90": 0.48044692737430167,
+   "median_rel_err": 1.21875,
+   "mean_interval_width_cycles": 528.0550279329608,
+   "median_remaining": 119.0
+  },
+  "0.5": {
+   "n": 182,
+   "coverage_90": 0.9340659340659341,
+   "median_rel_err": 0.22861842105263158,
+   "mean_interval_width_cycles": 159.4420329670329,
+   "median_remaining": 79.0
+  },
+  "0.75": {
+   "n": 183,
+   "coverage_90": 0.9344262295081968,
+   "median_rel_err": 0.21739130434782608,
+   "mean_interval_width_cycles": 63.52595628415298,
+   "median_remaining": 39.0
+  }
+ },
+ "prognostic_horizon_median_frac_life": 0.37267080745341613
+}

@@ -1,0 +1,32 @@
+# the dataset is downloaded separately (data/README.md says where), only that README is kept
+data/*
+!data/README.md
+
+# cache the dashboard builds from the dataset on its first start
+results/06_dashboard/
+
+# python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# mac and editors
+.DS_Store
+.vscode/
+.idea/
+
+# keys and local settings
+.env
+.env.*
+.streamlit/secrets.toml
+*.pem
+*.key
+
+# reports and course documents do not belong in the code repo
+*.pdf
+*.docx
+*.pptx

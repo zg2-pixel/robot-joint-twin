@@ -1,0 +1,7 @@
+comparison,units,bias_mean,cycle_to_cycle_std,within_cycle_std,note
+"torque sensor A - B, at rest",N m,-0.5057764134992256,0.142719281398581,0.4260425659848018,"two sensors on the same joint; bias = calibration offset, spread = noise"
+A - B vs torque level: slope (gain mismatch),N m per N m,0.0736897194159589,,0.35902349684346224,intercept 1.892 N m; within_cycle_std here = spread left after removing offset and gain
+"torque sensor A - controller model, at rest",N m,5.252876724962566,0.16485781817180986,,"gravity model error of the controller, absorbed into c0"
+"motor torque - torque sensor A, at rest",N m,-5.138373980386439,1.2716189900628285,,holding torque lost in the gearbox at standstill
+"joint position - commanded, at rest",rad,3.478200975971526e-05,0.00010132833010222427,,"controller steady-state error, not a sensor error"
+"joint position - commanded, while moving (rms)",rad,0.0027995932564945816,0.00012014443796710988,,tracking lag of the controller

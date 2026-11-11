@@ -1,0 +1,6 @@
+,collision,electrical,friction,healthy,payload
+collision,40,0,0,100,2
+electrical,0,11,0,0,0
+friction,0,0,21,0,0
+healthy,27,0,0,1545,21
+payload,8,0,0,62,141
