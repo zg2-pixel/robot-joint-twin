@@ -34,12 +34,14 @@ ap.add_argument("--axis", type=int, default=2)
 ap.add_argument("--runs", type=int, default=10)
 ap.add_argument("--tau-max", type=float, default=1.8)
 ap.add_argument("--out", default=os.path.join(D.ROOT, "results", "05_replay"))
+ap.add_argument("--step3", default=os.path.join(D.ROOT, "results", "03_detect"),
+                help="directory containing step-3 results")
 args = ap.parse_args()
 os.makedirs(args.out, exist_ok=True)
 rng = np.random.default_rng(0)
 t0 = time.time()
 C = DEFAULT_COSTS
-STEP3 = os.path.join(D.ROOT, "results", "03_detect")
+STEP3 = args.step3
 if not os.path.exists(os.path.join(STEP3, f"cycles_axis{args.axis}.csv")):
     sys.exit("run scripts/03_detect.py first, this step reads its cycle table and classifier results")
 

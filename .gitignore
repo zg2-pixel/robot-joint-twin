@@ -11,6 +11,8 @@ __pycache__/
 .ipynb_checkpoints/
 .pytest_cache/
 .venv/
+.dashboard/
+results/dashboard_runs/
 venv/
 env/
 
@@ -26,7 +28,16 @@ env/
 *.pem
 *.key
 
-# reports and course documents do not belong in the code repo
+# Ignore other course documents; explicitly include the D2 deliverable below.
 *.pdf
 *.docx
 *.pptx
+
+# Published project report and local runtime logs
+!reports/deliverable2/Deliverable2_RobotJointTwin.pdf
+dashboard-start.log
+dashboard-error.log
+reports/**/*.aux
+reports/**/*.log
+reports/**/*.out
+reports/**/main.pdf
