@@ -34,11 +34,13 @@ ap.add_argument("--model", default="restart", choices=["kf", "window", "restart"
 ap.add_argument("--window", type=int, default=40)
 ap.add_argument("--k-onset", type=float, default=1.5)
 ap.add_argument("--out", default=os.path.join(D.ROOT, "results", "04_forecast"))
+ap.add_argument("--step3", default=os.path.join(D.ROOT, "results", "03_detect"),
+                help="directory containing step-3 results")
 args = ap.parse_args()
 os.makedirs(args.out, exist_ok=True)
 rng = np.random.default_rng(1)
 t0 = time.time()
-STEP3 = os.path.join(D.ROOT, "results", "03_detect")
+STEP3 = args.step3
 if not os.path.exists(os.path.join(STEP3, f"tracking_axis{args.axis}.csv")):
     sys.exit("run scripts/03_detect.py first, this step reads its tracking and staircase tables")
 

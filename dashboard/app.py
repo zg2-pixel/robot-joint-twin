@@ -3,6 +3,7 @@
 It replays results/05_replay/replay_log.csv cycle by cycle: what the twin observed, what it concluded,
 what it decided and what it did, next to a 3D view of the arm. Nothing is recomputed here except the
 what-if on the cost ratios; the numbers are the ones scripts/05_replay.py wrote.
+The Run analysis page can launch new analyses in the background.
 """
 import sys
 import time
@@ -12,6 +13,8 @@ import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from dashboard import twin_view as tv
+from dashboard import run_panel
+from dashboard.jobs import completed_runs
 from twin.decide import DEFAULT_COSTS
 
 TAU_MAX = 1.8
@@ -21,25 +24,62 @@ st.set_page_config(page_title="Robot joint twin", layout="wide")
 
 
 @st.cache_data(show_spinner="reading the replay log ...")
-def get_log():
-    return tv.load_log()
+def get_log(path, modified):
+    return tv.load_log(path)
 
 
 @st.cache_resource(show_spinner="reading the joint trajectories (first start reads the data file once) ...")
-def get_poses():
+def get_poses(modified):
     return tv.load_poses()
 
 
-if not tv.LOG_PATH.exists():
-    st.error("results/05_replay/replay_log.csv not found. Run `python scripts/05_replay.py` first.")
+st.sidebar.title("Robot joint twin")
+page = st.sidebar.radio("Workspace", ["Dashboard", "Run analysis"], key="workspace_page")
+if page == "Run analysis":
+    run_panel.render()
     st.stop()
 
-log = get_log()
-poses, template, pose_source = get_poses()
+choices = {}
+if tv.LOG_PATH.exists():
+    choices["Saved repository results"] = tv.LOG_PATH
+choices.update(completed_runs())
+if not choices:
+    st.title("Robot joint twin")
+    st.info("No replay results yet. Open Run analysis in the sidebar to create them. "
+            "The interface is ready; no analysis runs automatically.")
+    st.stop()
+
+
+def reset_results():
+    st.session_state.cycle = 0
+    st.session_state.acked = set()
+    st.session_state.play = False
+
+
+result_name = st.sidebar.selectbox("Results", list(choices), on_change=reset_results)
+log_path = choices[result_name]
+try:
+    log = get_log(str(log_path), log_path.stat().st_mtime_ns)
+except Exception as exc:
+    st.error(f"Could not read these results: {exc}")
+    st.info("Select another result or open Run analysis.")
+    st.stop()
+use_poses = st.sidebar.checkbox("Load recorded arm trajectories", value=False,
+                               disabled=not (tv.POSES_PATH.exists() or tv.PARQUET_PATH.exists()),
+                               help="Optional: the first load reads the raw dataset. "
+                                    "The default schematic animation opens immediately.")
+if use_poses:
+    pose_path = tv.POSES_PATH if tv.POSES_PATH.exists() else tv.PARQUET_PATH
+    poses, template, pose_source = get_poses(pose_path.stat().st_mtime_ns)
+else:
+    poses, template, pose_source = {}, tv.synthetic_cycle(), "schematic trajectory (recorded motion not loaded)"
 names = tv.scenario_names(log)
+if not names:
+    st.warning("This result has no replay scenarios. Open Run analysis to generate a new result.")
+    st.stop()
 
 # ---------- state ----------
-if "scenario" not in st.session_state:
+if st.session_state.get("scenario") not in names:
     st.session_state.scenario = "S2_run0" if "S2_run0" in names else names[0]
 if "cycle" not in st.session_state:
     st.session_state.cycle = 0
@@ -59,7 +99,6 @@ def jump_to(name):
 
 # ---------- sidebar ----------
 with st.sidebar:
-    st.title("Robot joint twin")
     st.caption("joint 2 (shoulder) of the six-axis cobot, voraus-AD cycles")
     st.selectbox("scenario", names, key="scenario", format_func=lambda s: tv.SCENARIOS.get(s, s), on_change=reset_cycle)
     sf = tv.scenario_frame(log, st.session_state.scenario)

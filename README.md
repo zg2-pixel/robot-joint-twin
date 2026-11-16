@@ -59,6 +59,23 @@ counts is that it shifts when friction is added.
 
 ## Dashboard
 
+On Windows, double-click **Start Dashboard.cmd**. It uses the existing .venv,
+starts a local server and opens your browser. Keep the launcher window open;
+closing it stops the server. No training runs on startup. A second launch reopens
+the running instance; occupied ports are skipped automatically.
+
+The **Dashboard** workspace initially shows saved repository results. Use
+**Run analysis** to select a local 100 Hz Parquet file and start either detection
+and decision replay (steps 3 and 5) or the full pipeline (steps 1-5). Progress and
+the subprocess log update while the UI remains responsive; Stop analysis cancels
+the job. Keep the server running until the job finishes.
+
+Each run writes to its own folder under results/dashboard_runs, leaving the
+committed outputs intact. Completed runs appear in the Dashboard Results selector.
+Failed or stopped jobs retain their logs but are not offered as completed results.
+These controls do not download data automatically. Without the Parquet file,
+you can still browse saved results.
+
 One screen per cycle: the arm in 3D with joint 2 coloured by its health, the friction history with the
 healthy band and the limit, the forecast of cycles-to-limit with its 90 % interval, what the classifier
 thinks the cycle is, the expected cost of each action, and the action band over the whole scenario with the
@@ -66,9 +83,12 @@ points where the two baselines would have stopped. Pick a scenario (recorded fau
 sensor drift, an unseen fault), step through the cycles or let it play, change the cost ratios to see how
 the decisions move, acknowledge a maintenance ticket, download the log.
 
-The arm uses the recorded joint angles of each cycle (the first start reads them from the parquet once and
-caches them in `results/06_dashboard/poses.parquet`, which is not in git); without the data file it falls
-back to a synthetic pick-and-place. Link lengths and angle offsets are schematic, not the real kinematics.
+The arm initially uses a schematic trajectory, so opening the page does not scan
+the raw dataset. Enable **Load recorded arm trajectories** to read the standard
+data/voraus-ad-dataset-100hz.parquet file (or an existing pose cache). The first
+load creates results/06_dashboard/poses.parquet. A custom analysis dataset path
+does not replace this standard trajectory source. Link lengths and offsets remain
+schematic, not the real kinematics.
 
 ## Status
 
@@ -85,3 +105,7 @@ back to a synthetic pick-and-place. Link lengths and angle offsets are schematic
 The voraus-AD dataset is by voraus robotik and Leibniz University Hannover (Brockmann et al., IEEE T-RO 2024)
 and is licensed CC BY-NC-SA 4.0. The raw file is not in this repository, see `data/README.md`. The tables
 and figures in `results/` are computed from it and are shared under the same licence, non-commercial use only.
+
+## Deliverable 2 report
+
+The [English D2 report](reports/deliverable2/Deliverable2_RobotJointTwin.pdf), [LaTeX source and build instructions](reports/deliverable2/README.md), and dashboard screenshots are included in `reports/deliverable2/`. Remaining validation and dashboard development are identified as future work.
