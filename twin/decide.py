@@ -20,7 +20,28 @@ A stop needs the same verdict on two consecutive cycles (hysteresis); a failed s
 import numpy as np
 
 ACTIONS = ["continue", "slow", "schedule", "stop"]
-DEFAULT_COSTS = {"missed": 100.0, "stop": 30.0, "sched": 3.0, "slow": 0.3, "waste": 0.1}
+DEFAULT_COSTS = {"missed": 100.0, "stop": 30.0, "sched": 3.0, "slow": 0.3, "waste": 0.1, "abstain": 1.0}
+HARD_FAULTS = {"friction", "electrical", "collision"}
+
+
+def realised_cycle_cost(action, label, costs=None):
+    """Realised cost of one recorded cycle under the same cost ratios used by DecisionRule."""
+    c = dict(DEFAULT_COSTS, **(costs or {}))
+    if label in HARD_FAULTS:
+        return {
+            "continue": c["missed"],
+            "abstain": c["missed"],
+            "slow": 0.5 * c["missed"],
+            "schedule": c["sched"],
+            "stop": c["sched"],
+        }[action]
+    return {
+        "continue": 0.0,
+        "slow": c["slow"],
+        "schedule": c["sched"],
+        "stop": c["stop"],
+        "abstain": c["abstain"],
+    }[action]
 
 
 class DecisionRule:
@@ -49,7 +70,8 @@ class DecisionRule:
         """The lead-time rule: issue the ticket once crossing within L + margin has become likely enough."""
         return (not ticket_open) and (p_cross_plan_horizon >= self.p_commit)
 
-    def decide(self, p_fault, p_cross_window, p_cross_plan, sensor_ok=True, unused_life=0.0, lo5=np.inf, ticket_open=False, p_cross_plan_horizon=0.0):
+    def decide(self, p_fault, p_cross_window, p_cross_plan, sensor_ok=True, unused_life=0.0, lo5=np.inf,
+               ticket_open=False, p_cross_plan_horizon=0.0, severe=False):
         """Returns (action, expected costs, note)."""
         if not sensor_ok:
             self.stop_votes = 0
@@ -63,11 +85,15 @@ class DecisionRule:
             self.last = "schedule"
             return "schedule", ec, f"P(cross within {self.W + self.plan_margin}) = {p_cross_plan_horizon:.2f}: plan at {max(lo5, self.W):.0f} cycles (lower bound of the 90 % interval)"
         if best == "stop":
-            self.stop_votes += 1
-            if self.stop_votes < self.hysteresis:
-                # not yet: take the next best action this cycle
-                best = min((a for a in acute if a != "stop"), key=acute.get)
-                note = f"stop needs {self.hysteresis} consecutive votes ({self.stop_votes} so far)"
+            if severe:
+                self.stop_votes = self.hysteresis
+                note = "severe step override: skipped hysteresis"
+            else:
+                self.stop_votes += 1
+                if self.stop_votes < self.hysteresis:
+                    # not yet: take the next best action this cycle
+                    best = min((a for a in acute if a != "stop"), key=acute.get)
+                    note = f"stop needs {self.hysteresis} consecutive votes ({self.stop_votes} so far)"
         else:
             self.stop_votes = 0
         self.last = best

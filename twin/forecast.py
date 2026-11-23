@@ -6,6 +6,7 @@ Forecast: draw (level, slope) from the posterior, roll the trend forward with it
 the first cycle at which it crosses tau_max. The spread of those crossings is the uncertainty of N*.
 """
 import numpy as np
+from scipy.stats import norm
 
 
 class TrendKF:
@@ -40,6 +41,13 @@ class TrendKF:
 
     def level_std(self):
         return float(np.sqrt(self.P[0, 0]))
+
+    def slope_std(self):
+        return float(np.sqrt(max(self.P[1, 1], 1e-18)))
+
+    def p_positive_slope(self):
+        """Posterior probability that the wear slope is positive."""
+        return float(norm.sf(0.0, loc=self.x[1], scale=self.slope_std()))
 
     def cycles_to_limit(self, tau_max, horizon=1000, n=2000, rng=None):
         """Monte Carlo over the posterior and the process noise. Returns the crossing cycles (horizon where none)."""
@@ -132,13 +140,21 @@ class RestartingTrendKF(TrendKF):
     """The Kalman trend above, restarted when a drift sets in. After a long healthy history the filter is sure the
     slope is zero and lags behind a drift that starts later; the reference tracker knows when tau_c leaves its
     healthy band, so at that moment the trend is re-estimated from scratch over the last `lookback` cycles
-    (fresh prior, then the recent observations replayed), which gives it the slope it had been missing."""
+    (fresh prior, then the recent observations replayed), which gives it the slope it had been missing.
 
-    def __init__(self, level0, ref_mean, ref_std, k_onset=2.0, n_onset=3, lookback=40, **kw):
+    Supports two onset detectors: `onset_mode="votes"` (n_onset consecutive excursions above k_onset sigma)
+    and `onset_mode="cusum"` (one-sided upper CUSUM with allowance k_cusum and threshold h_cusum).
+    """
+
+    def __init__(self, level0, ref_mean, ref_std, k_onset=2.0, n_onset=3, lookback=40,
+                 onset_mode="votes", k_cusum=0.5, h_cusum=4.5, **kw):
         super().__init__(level0, **kw)
         self.kw = kw
         self.ref_mean, self.ref_std = ref_mean, ref_std
         self.k_onset, self.n_onset, self.lookback = k_onset, n_onset, lookback
+        self.onset_mode = onset_mode
+        self.k_cusum, self.h_cusum = k_cusum, h_cusum
+        self.cusum = 0.0
         self.votes = 0
         self.onset = None
         self.t = 0
@@ -150,8 +166,14 @@ class RestartingTrendKF(TrendKF):
         if y is not None and np.isfinite(y):
             self.buf.append(float(y)); self.buf = self.buf[-self.lookback:]
             if self.onset is None:
-                self.votes = self.votes + 1 if (y - self.ref_mean) > self.k_onset * self.ref_std else 0
-                if self.votes >= self.n_onset:
+                z = (y - self.ref_mean) / max(self.ref_std, 1e-9)
+                if self.onset_mode == "cusum":
+                    self.cusum = max(0.0, self.cusum + z - self.k_cusum)
+                    triggered = self.cusum >= self.h_cusum
+                else:
+                    self.votes = self.votes + 1 if z > self.k_onset else 0
+                    triggered = self.votes >= self.n_onset
+                if triggered:
                     self.onset = self.t
                     recent = self.buf
                     self.x = np.array([self.ref_mean, 0.0])
@@ -159,6 +181,14 @@ class RestartingTrendKF(TrendKF):
                     for v in recent:                       # replay the recent past with an open mind about the slope
                         TrendKF.step(self, v)
         return innov
+
+    @property
+    def cycles_since_onset(self):
+        return 0 if self.onset is None else (self.t - self.onset)
+
+    def is_ready(self, min_cycles=10, p_slope_min=0.90):
+        """True once drift onset has been declared and the posterior slope is reliably positive."""
+        return (self.onset is not None) and (self.cycles_since_onset >= min_cycles) and (self.p_positive_slope() >= p_slope_min)
 
     def update_reference(self, ref_mean, ref_std):
         """Follow the reference tracker while no drift has been declared."""

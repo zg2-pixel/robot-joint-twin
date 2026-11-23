@@ -37,17 +37,34 @@ def label_for_joint(T, axis):
 
 class HealthCheck:
     """Are the sensors to be trusted this cycle? Compares the A-B disagreement (mean and spread) and the cycle
-    time with their healthy band (mean +- k * spread, from the reference cycles)."""
+    time with their healthy band (mean +- k * spread, from the reference cycles).
 
-    def __init__(self, ref, k=4.0):
+    When `adaptive=True`, `sensor_ab_mean` uses its within-batch standard deviation (if `variant` is present)
+    and updates its reference mean exponentially on healthy cycles, so batch-to-batch drift does not inflate
+    the band and mask a 0.5 N m single-channel offset.
+    """
+
+    def __init__(self, ref, k=4.0, adaptive=False, lam=0.98):
         self.k = k
-        self.band = {c: (ref[c].mean(), ref[c].std()) for c in ["sensor_ab_mean", "sensor_ab_std", "duration"]}
+        self.adaptive = adaptive
+        self.lam = lam
+        self.band = {c: (float(ref[c].mean()), float(ref[c].std())) for c in ["sensor_ab_mean", "sensor_ab_std", "duration"]}
+        if adaptive and "variant" in ref.columns and ref["variant"].nunique() > 1:
+            within = ref.groupby("variant")["sensor_ab_mean"].std().dropna()
+            if len(within) and float(within.mean()) > 0:
+                self.band["sensor_ab_mean"] = (float(ref["sensor_ab_mean"].mean()), float(within.mean()))
 
     def __call__(self, row):
         flags = {}
         for c, (m, s) in self.band.items():
-            flags[c] = abs(row[c] - m) > self.k * s
+            flags[c] = abs(float(row[c]) - m) > self.k * s
         return flags
+
+    def update(self, row, healthy=True):
+        """Track slow batch-level drift of the A-B mean on healthy cycles when `adaptive=True`."""
+        if self.adaptive and healthy:
+            m, s = self.band["sensor_ab_mean"]
+            self.band["sensor_ab_mean"] = (self.lam * m + (1.0 - self.lam) * float(row["sensor_ab_mean"]), s)
 
 
 class ResidualTest:
